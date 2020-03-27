@@ -149,7 +149,11 @@ const Keyboard = {
         this.properties.value += key.textContent;
         this.inTextArea(this.properties.value);
       } else if (event.shiftKey && event.altKey) {
-        this.changeLanguage();
+        if (!event.repeat) {
+          this.changeLanguage();
+        }
+      } else if (event.key == 'Meta') {
+        return;
       }
       if (this.properties.language == this.keyLayout.keyArrEn) {
         if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') {
