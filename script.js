@@ -80,6 +80,8 @@ const Keyboard = {
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
     document.body.prepend(this.elements.textarea);
+    this.elements.textarea.spellcheck = false;
+    this.elements.textarea.focus();
 
     document.addEventListener('mousedown', (event) => {
       this.elements.keys.forEach((elem) => {
@@ -107,12 +109,33 @@ const Keyboard = {
           this.changeLanguage();
         } else if (event.target.textContent == 'Ру') {
           this.changeLanguage();
+        } else if (event.target == elem && elem.id == 'ArrowUp') {
+          const prevLine = this.elements.textarea.value.lastIndexOf('\n', this.elements.textarea.selectionEnd);
+          const TwoBLine = this.elements.textarea.value.lastIndexOf('\n', prevLine - 1);
+          if (prevLine === -1) return;
+          this.elements.textarea.selectionEnd -= prevLine;
+          this.elements.textarea.selectionEnd = TwoBLine + this.elements.textarea.selectionEnd;
+          this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
+        } else if (event.target == elem && elem.id == 'ArrowLeft') {
+          this.elements.textarea.selectionEnd -= 1;
+          this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
+        } else if (event.target == elem && elem.id == 'ArrowDown') {
+          const prevLine = this.elements.textarea.value.lastIndexOf('\n', this.elements.textarea.selectionEnd);
+          const nextLine = this.elements.textarea.value.indexOf('\n', this.elements.textarea.selectionEnd + 1);
+          if (nextLine === -1) return;
+          this.elements.textarea.selectionEnd -= prevLine;
+          this.elements.textarea.selectionEnd = nextLine + this.elements.textarea.selectionEnd;
+          this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
+        } else if (event.target == elem && elem.id == 'ArrowRight') {
+          this.elements.textarea.selectionEnd += 1;
+          this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
         }
       });
     });
 
     document.addEventListener('mouseup', (event) => {
       this.elements.keys.forEach((elem) => {
+        this.elements.textarea.focus();
         if (event.target == elem && (elem.id == 'ShiftLeft' || elem.id == 'ShiftRight')) {
           this.toggleCapsLock();
         }
@@ -153,7 +176,31 @@ const Keyboard = {
           this.changeLanguage();
         }
       } else if (event.key == 'Meta') {
-        return;
+        this.elements.textarea.focus();
+      } else if (event.key == 'ArrowUp') {
+        this.elements.textarea.focus();
+        const prevLine = this.elements.textarea.value.lastIndexOf('\n', this.elements.textarea.selectionEnd);
+        const TwoBLine = this.elements.textarea.value.lastIndexOf('\n', prevLine - 1);
+        if (prevLine === -1) return;
+        this.elements.textarea.selectionEnd -= prevLine;
+        this.elements.textarea.selectionEnd = TwoBLine + this.elements.textarea.selectionEnd;
+        this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
+      } else if (event.key == 'ArrowLeft') {
+        this.elements.textarea.focus();
+        this.elements.textarea.selectionEnd -= 1;
+        this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
+      } else if (event.key == 'ArrowDown') {
+        this.elements.textarea.focus();
+        const prevLine = this.elements.textarea.value.lastIndexOf('\n', this.elements.textarea.selectionEnd);
+        const nextLine = this.elements.textarea.value.indexOf('\n', this.elements.textarea.selectionEnd + 1);
+        if (nextLine === -1) return;
+        this.elements.textarea.selectionEnd -= prevLine;
+        this.elements.textarea.selectionEnd = nextLine + this.elements.textarea.selectionEnd;
+        this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
+      } else if (event.key == 'ArrowRight') {
+        this.elements.textarea.focus();
+        this.elements.textarea.selectionEnd += 1;
+        this.elements.textarea.selectionStart = this.elements.textarea.selectionEnd;
       }
       if (this.properties.language == this.keyLayout.keyArrEn) {
         if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') {
