@@ -153,6 +153,10 @@ const Keyboard = {
 
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
+      if (this.keyLayout.keyCode.indexOf(event.code) == -1) {
+        return;
+      }
+
       const key = document.querySelector(`.keyboard__key[id = "${event.code}"]`);
       key.classList.add('active');
 
@@ -239,6 +243,10 @@ const Keyboard = {
     });
 
     document.addEventListener('keyup', (event) => {
+      if (this.keyLayout.keyCode.indexOf(event.code) == -1) {
+        return;
+      }
+
       const key = document.querySelector(`.keyboard__key[id = "${event.code}"]`);
       const keyId = key.id;
       if (event.code == keyId) {
