@@ -33,7 +33,7 @@
     height: 40px;
     min-width: 40px;
     border-radius: 3px;
-    background-color: rgba(58, 66, 78, 1);
+    background-color: rgba(58, 66, 78);
     margin: 3px;
     border: none;
     color: #ffffff;
@@ -42,33 +42,17 @@
     cursor: pointer;
     padding: 0;
     position: relative;
-    text-shadow: 0 -1px rgba(0,0,0,.5);
-    box-shadow:
-        0 6px rgb(255, 255, 255),
-        0 3px 15px rgba(0,0,0,.4),
-        inset 0 1px rgba(255,255,255,.3),
-        inset 0 0 3px rgba(255,255,255,.5);
     transition: .2s;
 }
 
 .keyboard__key:active {
     background-color: rgb(85,113,238);
-    box-shadow:
-        0 2px rgb(255, 255, 255),
-        0 1px 6px rgba(0,0,0,.4),
-        inset 0 1px rgba(255,255,255,.3),
-        inset 0 0 3px rgba(255,255,255,.5);
     -webkit-transform: translate(0, 4px);
     transform: translate(0, 4px);
 }
 
 .active {
     background-color: rgb(85,113,238) !important;
-    box-shadow:
-        0 2px rgb(255, 255, 255),
-        0 1px 6px rgba(0,0,0,.4),
-        inset 0 1px rgba(255,255,255,.3),
-        inset 0 0 3px rgba(255,255,255,.5);
     -webkit-transform: translate(0, 4px);
     transform: translate(0, 4px);
 }
